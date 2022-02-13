@@ -151,6 +151,7 @@ public class PythonClientCodegen extends DefaultCodegenConfig {
         supportedLibraries.put("urllib3", "urllib3-based client");
         supportedLibraries.put("asyncio", "Asyncio-based client (python 3.5+)");
         supportedLibraries.put("tornado", "tornado-based client");
+        supportedLibraries.put("requests", "requests-based client");
         CliOption libraryOption = new CliOption(CodegenConstants.LIBRARY, "library template (sub-template) to use");
         libraryOption.setDefault(DEFAULT_LIBRARY);
         cliOptions.add(libraryOption);
@@ -230,6 +231,9 @@ public class PythonClientCodegen extends DefaultCodegenConfig {
         } else if ("tornado".equals(getLibrary())) {
             supportingFiles.add(new SupportingFile("tornado/rest.mustache", packageFolder, "rest.py"));
             additionalProperties.put("tornado", "true");
+        } else if ("requests".equals(getLibrary())) {
+            supportingFiles.add(new SupportingFile("requests/rest.mustache", packageFolder, "rest.py"));
+            additionalProperties.put("requests", "true");
         } else {
             supportingFiles.add(new SupportingFile("rest.mustache", packageFolder, "rest.py"));
         }
